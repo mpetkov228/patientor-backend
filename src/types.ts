@@ -1,3 +1,9 @@
+export enum Gender {
+  Male = 'male',
+  Female = 'female',
+  Other = 'other',
+};
+
 export type Diagnosis = {
   code: string;
   name: string;
