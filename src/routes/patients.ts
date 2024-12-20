@@ -8,7 +8,8 @@ router.get('/', (_req, res) => {
   res.send(patientsService.getNonSsnPatients());
 });
 
-router.post('/', (_req, res) => {
+router.post('/', (req, res) => {
+  console.log(req.body);
   res.send('create patient');
 });
 
