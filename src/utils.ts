@@ -48,15 +48,22 @@ const parseOccupation = (param: unknown): string => {
 };
 
 const toNewPatient = (object: unknown): NewPatient => {
-  const newPatient: NewPatient = {
-    name: parseName(object.name),
-    dateOfBirth: parseDateOfBirth(object.dateOfBirth),
-    ssn: parseSsn(object.ssn),
-    gender: parseGender(object.gender),
-    occupation: parseOccupation(object.occupation)
-  };
+  if (!object || typeof object !== 'object') {
+    throw new Error('Incorrect or missing data');
+  }
 
-  return newPatient;
+  if ('name' in object && 'dateOfBirth' in object && 'ssn' in object && 'gender' in object && 'occupation' in object) { 
+    const newPatient: NewPatient = {
+      name: parseName(object.name),
+      dateOfBirth: parseDateOfBirth(object.dateOfBirth),
+      ssn: parseSsn(object.ssn),
+      gender: parseGender(object.gender),
+      occupation: parseOccupation(object.occupation)
+    };      
+    return newPatient;
+  }
+
+  throw new Error('Incorrect data: some fields missing');
 };
 
 export default toNewPatient;
