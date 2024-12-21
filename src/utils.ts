@@ -13,35 +13,35 @@ const isGender = (param: string): param is Gender => {
 };
 
 const parseName = (param: unknown): string => {
-  if (!param || !isString(param)) {
+  if (!isString(param)) {
     throw new Error('Incorrect or missing name');
   }
   return param;
 };
 
 const parseDateOfBirth = (param: unknown): string => {
-  if (!param || !isString(param) || !isDate(param)) {
+  if (!isString(param) || !isDate(param)) {
     throw new Error('Incorrect or missing date of birth');
   }
   return param;
 };
 
 const parseSsn = (param: unknown): string => {
-  if (!param || !isString(param)) {
+  if (!isString(param)) {
     throw new Error('Incorrect or missing ssn');
   }
   return param;
 };
 
 const parseGender = (param: unknown): Gender => {
-  if (!param || !isString(param) || !isGender(param)) {
+  if (!isString(param) || !isGender(param)) {
     throw new Error('Incorrect or missing gender');
   }
   return param;
 };
 
 const parseOccupation = (param: unknown): string => {
-  if (!param || !isString(param)) {
+  if (!isString(param)) {
     throw new Error('Incorrect or missing occupation');
   }
   return param;
