@@ -28,6 +28,10 @@ router.get('/', (_req, res) => {
   res.send(patientsService.getNonSsnPatients());
 });
 
+router.get('/:id', (req, res) => {
+  res.send(patientsService.getPatientById(req.params.id));
+});
+
 router.post('/', newPatientParser, (req: Request<unknown, unknown, NewPatient>, res: Response<NewPatient>) => {
   const createdPatient = patientsService.createPatient(req.body);
   res.json(createdPatient);
