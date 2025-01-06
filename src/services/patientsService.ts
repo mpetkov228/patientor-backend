@@ -8,7 +8,6 @@ const getPatients = (): Patient[] => {
 };
 
 const getPatientById = (id: string): Patient | undefined => {
-  // console.log(patients);
   return patients.find(p => p.id === id);
 };
 

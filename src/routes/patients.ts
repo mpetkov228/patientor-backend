@@ -25,7 +25,7 @@ const errorMiddleware = (error: unknown, _req: Request, res: Response, next: Nex
 };
 
 router.get('/', (_req, res) => {
-  res.send(patientsService.getNonSsnPatients());
+  res.send(patientsService.getPatients());
 });
 
 router.get('/:id', (req, res) => {
