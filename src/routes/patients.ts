@@ -3,7 +3,7 @@ import { ZodError } from 'zod';
 
 import patientsService from '../services/patientsService';
 import { newPatientSchema } from '../utils';
-import { NewPatient } from '../types';
+import { NewEntry, NewPatient } from '../types';
 
 const router = express.Router();
 
@@ -35,6 +35,11 @@ router.get('/:id', (req, res) => {
 router.post('/', newPatientParser, (req: Request<unknown, unknown, NewPatient>, res: Response<NewPatient>) => {
   const createdPatient = patientsService.createPatient(req.body);
   res.json(createdPatient);
+});
+
+router.post('/:id/entries', (req: Request<{ id: string }, unknown, NewEntry>, res: Response<NewEntry>) => {
+  const createdEntry = patientsService.createEntry(req.params.id, req.body);
+  res.json(createdEntry);
 });
 
 router.use(errorMiddleware);

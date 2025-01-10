@@ -1,7 +1,7 @@
 import { v1 as uuid } from 'uuid';
 
 import patients from '../../data/patientsFull';
-import { Patient, NewPatient } from '../types';
+import { Patient, NewPatient, NewEntry, Entry, Diagnosis } from '../types';
 
 const getPatients = (): Patient[] => {
   return patients;
@@ -33,9 +33,34 @@ const createPatient = (patient: NewPatient): Patient => {
   return newPatient;
 };
 
+const parseDiagnosisCodes = (object: unknown): Array<Diagnosis['code']> =>  {
+  if (!object || typeof object !== 'object' || !('diagnosisCodes' in object)) {
+    // we will just trust the data to be in correct form
+    return [] as Array<Diagnosis['code']>;
+  }
+
+  return object.diagnosisCodes as Array<Diagnosis['code']>;
+};
+
+const createEntry = (id: string, entry: NewEntry): Entry => {
+  const newEntry = {
+    id: uuid(),
+    ...entry
+  };
+  parseDiagnosisCodes(newEntry);
+  patients.forEach(patient => {
+    if (patient.id === id) {
+      patient.entries.push(newEntry);
+    }
+  });
+
+  return newEntry;
+};
+
 export default {
   getPatients,
   getPatientById,
   getNonSsnPatients,
   createPatient,
+  createEntry
 };
